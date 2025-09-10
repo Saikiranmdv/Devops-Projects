@@ -25,6 +25,7 @@ This repository exists to help me **learn DevOps by building real, end‑to‑en
 * **Cloud:** AWS focus; some Azure/GCP experiments
 
 ---
-
+## 🧰 Project URLs
+1. Server Performance Stats : https://roadmap.sh/projects/server-stats
 > Each project has its own `README.md` with setup, commands
 
