@@ -43,7 +43,7 @@
 if (( a > b )); then
    echo "a is bigger"
 fi
-
+```
 ---
 
 ## 3. File Test Operators
@@ -82,7 +82,7 @@ fi
 if [[ -f file && -r file ]]; then
    echo "File exists and is readable"
 fi
-```
+````
 
 ---
 
