@@ -27,5 +27,6 @@ This repository exists to help me **learn DevOps by building real, end‑to‑en
 ---
 ## 🧰 Project URLs
 1. Server Performance Stats : https://roadmap.sh/projects/server-stats
+2. Log Analyzer : https://roadmap.sh/projects/log-archive-tool
 > Each project has its own `README.md` with setup, commands
 
