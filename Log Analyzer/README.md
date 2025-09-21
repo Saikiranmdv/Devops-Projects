@@ -1,4 +1,3 @@
-````markdown
 # 📘 Revision Notes
 
 ## Topics Covered
@@ -44,7 +43,6 @@
 if (( a > b )); then
    echo "a is bigger"
 fi
-````
 
 ---
 
