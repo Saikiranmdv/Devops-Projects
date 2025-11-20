@@ -3,8 +3,6 @@ name: CI/CD DevSecops Pipeline
 on:
   push:
     branches: [ main ]
-    paths-ignore: 
-      - 'kubernetes/deployment.yml'
     paths:
       - 'src/**'
       - 'Dockerfile'
