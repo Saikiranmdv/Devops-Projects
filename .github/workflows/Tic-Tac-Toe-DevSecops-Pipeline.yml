@@ -91,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with: 
           name: build-artifacts
-          path: dist/
+          path: Tic-Tac-Toe-DevSecOps-Project/dist/
 
   docker:
     if: github.actor != 'github-actions[bot]'
