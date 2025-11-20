@@ -183,38 +183,38 @@ jobs:
           git push
           
   notify_failure:
-  needs: [test, lint, build, docker, update-k8s]
-  if: failure()
-  runs-on: ubuntu-latest
+    needs: [test, lint, build, docker, update-k8s]
+    if: failure()
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Collect failure logs
-      run: echo "${{ toJson(needs) }}" > errors.json
+    steps:
+      - name: Collect failure logs
+        run: echo "${{ toJson(needs) }}" > errors.json
 
-    - name: Send logs to AI for analysis
-      id: gemini
-      run: |
-        CONTENT=$(cat errors.json | sed 's/"/\\"/g')
+      - name: Send logs to AI for analysis
+        id: gemini
+        run: |
+          CONTENT=$(cat errors.json | sed 's/"/\\"/g')
 
-        RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
-          -H "x-goog-api-key: ${{ secrets.GEMINI_API_KEY }}" \
-          -H "Content-Type: application/json" \
-          -X POST \
-          -d "{
-                \"contents\": [{
-                  \"parts\": [{
-                    \"text\": \"You are a senior DevOps engineer. A GitHub Actions workflow failed. Explain the error in simple human-like language and give clear steps to fix it.\n\nHere is the raw failure log:\n\n${CONTENT}\"
+          RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
+            -H "x-goog-api-key: ${{ secrets.GEMINI_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{
+                  \"contents\": [{
+                    \"parts\": [{
+                      \"text\": \"You are a senior DevOps engineer. A GitHub Actions workflow failed. Explain the error in simple human-like language and give clear steps to fix it.\n\nHere is the raw failure log:\n\n${CONTENT}\"
+                    }]
                   }]
-                }]
-              }")
+                }")
 
-        echo "$RESPONSE" > gemini_output.json
+          echo "$RESPONSE" > gemini_output.json
 
-    - name: Print AI Failure Summary in Actions UI
-      run: |
-        SUMMARY=$(cat gemini_output.json | jq -r '.candidates[0].content.parts[0].text')
-        echo "::group:: AI Failure Analysis"
-        echo "$SUMMARY"
-        echo "::endgroup::"
-        echo "::notice::Gemini Summary: $SUMMARY"
+      - name: Print AI Failure Summary in Actions UI
+        run: |
+          SUMMARY=$(cat gemini_output.json | jq -r '.candidates[0].content.parts[0].text')
+          echo "::group:: AI Failure Analysis"
+          echo "$SUMMARY"
+          echo "::endgroup::"
+          echo "::notice::Gemini Summary: $SUMMARY"
 
