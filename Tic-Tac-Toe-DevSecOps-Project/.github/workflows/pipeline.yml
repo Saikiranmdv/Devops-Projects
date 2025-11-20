@@ -1,12 +1,23 @@
 name: CI/CD DevSecops Pipeline
 
 on:
-  push: 
+  push:
     branches: [ main ]
     paths-ignore: 
       - 'kubernetes/deployment.yml'
-  pull:
+    paths:
+      - 'src/**'
+      - 'Dockerfile'
+      - 'package.json'
+      - '!README.md'        # optional: ignore readme
+
+  pull_request:
     branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'Dockerfile'
+      - 'package.json'
+
 
 jobs:
   test:
