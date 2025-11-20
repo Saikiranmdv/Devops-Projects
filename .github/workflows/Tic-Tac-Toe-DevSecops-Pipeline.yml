@@ -4,17 +4,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'src/**'
-      - 'Dockerfile'
-      - 'package.json'
-      - '!README.md'        # optional: ignore readme
+      - 'Tic-Tac-Toe-DevSecOps-Project/**'
 
   pull_request:
     branches: [ main ]
     paths:
-      - 'src/**'
-      - 'Dockerfile'
-      - 'package.json'
+      - 'Tic-Tac-Toe-DevSecOps-Project/**'
 
 
 jobs:
