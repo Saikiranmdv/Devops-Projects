@@ -3,21 +3,21 @@ name: CI/CD DevSecops Pipeline
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - 'kubernetes/deployment.yaml'  # Ignore changes to this file to prevent loops
     paths:
       - 'Tic-Tac-Toe-DevSecOps-Project/**'
 
   pull_request:
     branches: [ main ]
-    paths-ignore:
-      - 'kubernetes/deployment.yaml'  # Ignore changes to this file to prevent loops
     paths:
       - 'Tic-Tac-Toe-DevSecOps-Project/**'
+
+defaults: &skip_bot
+  if: github.actor != 'github-actions[bot]'
 
 
 jobs:
   test:
+    <<: *skip_bot
     name: Unit Testing
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +37,7 @@ jobs:
         run: npm test || echo "No tests found"
 
   lint:
+    <<: *skip_bot
     name: Static Code Analysis
     runs-on: ubuntu-latest 
     steps: 
@@ -56,6 +57,7 @@ jobs:
         uses: npm run lint
 
   build: 
+    <<: *skip_bot
     name: Build Stage
     runs-on: ubuntu-latest
     needs: [test, lint]
@@ -82,6 +84,7 @@ jobs:
           path: dist/
 
   docker:
+    <<: *skip_bot
     name: Docker Build and Push
     runs-on: ubuntu-latest
     needs: [ build ]  
@@ -151,6 +154,7 @@ jobs:
         run: echo "image_tag=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
   update-k8s:
+    <<: *skip_bot
     name: Update Kubernetes Deployment
     runs-on: ubuntu-latest
     needs: [ build ]
