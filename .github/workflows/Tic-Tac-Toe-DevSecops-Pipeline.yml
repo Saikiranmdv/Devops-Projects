@@ -3,11 +3,15 @@ name: CI/CD DevSecops Pipeline
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'kubernetes/deployment.yaml'  # Ignore changes to this file to prevent loops
     paths:
       - 'Tic-Tac-Toe-DevSecOps-Project/**'
 
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'kubernetes/deployment.yaml'  # Ignore changes to this file to prevent loops
     paths:
       - 'Tic-Tac-Toe-DevSecOps-Project/**'
 
@@ -166,7 +170,7 @@ jobs:
           IMAGE_TAG: sha-${{ github.sha }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           REGISTRY: ghcr.io
-        run:
+        run: |
           NEW_IMAGE="${REGISTRY}/${GITHUB_REPOSITORY}:${IMAGE_TAG}"
           sed -i "s|image: ${REGISTRY}/.*|image: ${NEW_IMAGE}|g" kubernetes/deployment.yaml
           echo "Updated deployment to use image: ${NEW_IMAGE}"
