@@ -103,7 +103,7 @@ jobs:
         working-directory: Tic-Tac-Toe-DevSecOps-Project
     env: 
       REGISTRY: ghcr.io 
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: ${{ github.repository | toLower }}
     outputs:
       image_tag: ${{ steps.set_output.outputs.image_tag }}
     steps:
