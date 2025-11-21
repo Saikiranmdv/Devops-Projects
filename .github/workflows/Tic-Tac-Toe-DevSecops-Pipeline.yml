@@ -215,7 +215,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Collect failure logs
-        run: echo "${{ toJson(needs) }}" > errors.json
+        run: |
+          echo "${{ toJson(needs) }}" > full_errors.json
+          tail -n 200 full_errors.json > short_errors.txt
+          echo "=== Extracting error lines ==="
+          grep -Ri "error" -n full_errors.json > error_lines_only.txt || true
 
       - name: Send logs to AI for analysis
         id: gemini
