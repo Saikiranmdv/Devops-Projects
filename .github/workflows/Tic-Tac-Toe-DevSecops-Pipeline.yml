@@ -210,6 +210,9 @@ jobs:
         working-directory: Tic-Tac-Toe-DevSecOps-Project
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Collect failure logs
         run: echo "${{ toJson(needs) }}" > errors.json
 
