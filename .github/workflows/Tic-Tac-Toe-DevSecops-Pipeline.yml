@@ -139,7 +139,8 @@ jobs:
       - name : Build Docker image
         uses: docker/build-push-action@v5
         with: 
-          context: .
+          context: Tic-Tac-Toe-DevSecOps-Project
+          file: Tic-Tac-Toe-DevSecOps-Project/Dockerfile
           push: false
           tags: ${{ steps.meta.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -228,7 +229,7 @@ jobs:
             -d "{
                   \"contents\": [{
                     \"parts\": [{
-                      \"text\": \"You are a senior DevOps engineer. A GitHub Actions workflow failed. Explain the error in simple human-like language and give clear steps to fix it.\n\nHere is the raw failure log:\n\n${CONTENT}\"
+                      \"text\": \"You are a senior DevOps engineer. A GitHub Actions workflow failed. Explain the error in simple human-like language in short and give clear steps to fix it.\n\nHere is the raw failure log:\n\n${CONTENT}\"
                     }]
                   }]
                 }")
