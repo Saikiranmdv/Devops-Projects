@@ -133,9 +133,13 @@ jobs:
         with: 
           images: ghcr.io/${{ steps.vars.outputs.repo_lower }}
           tags: | 
-            type=sha, format=long
-            type=ref, event=branch
+            type=sha,
             latest
+      
+      - name: Extract SHA tag only
+        id: trim
+        run: |
+          echo "sha_tag=$(echo '${{ steps.meta.outputs.tags }}' | tr ',' '\n' | grep 'sha-')" >> $GITHUB_OUTPUT
 
       - name : Build Docker image
         uses: docker/build-push-action@v5
@@ -149,7 +153,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with: 
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: ${{ steps.trim.outputs.sha_tag }}
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
