@@ -110,7 +110,6 @@ jobs:
         id: vars
         run: echo "repo_lower=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
-      
       - name: Download build artifacts
         uses: actions/download-artifact@v4 
         with:
@@ -147,7 +146,7 @@ jobs:
           context: Tic-Tac-Toe-DevSecOps-Project
           file: Tic-Tac-Toe-DevSecOps-Project/Dockerfile
           push: false
-          tags: ${{ steps.meta.outputs.tag }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run Trivy vulnerability scanner
