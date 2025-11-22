@@ -167,8 +167,8 @@ jobs:
           file: Tic-Tac-Toe-DevSecOps-Project/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/sha-${{ github.sha }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ steps.vars.outputs.repo_lower }}/sha-${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.repo_lower }}:latest
           
       - name: Set Image tag output
         id: set_output
