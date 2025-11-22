@@ -146,6 +146,7 @@ jobs:
           context: Tic-Tac-Toe-DevSecOps-Project
           file: Tic-Tac-Toe-DevSecOps-Project/Dockerfile
           push: false
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
