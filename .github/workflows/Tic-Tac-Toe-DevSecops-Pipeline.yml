@@ -163,10 +163,10 @@ jobs:
       - name: Push Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: Tic-Tac-Toe-DevSecOps-Project
+          file: Tic-Tac-Toe-DevSecOps-Project/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.lab }}
           
       - name: Set Image tag output
         id: set_output
