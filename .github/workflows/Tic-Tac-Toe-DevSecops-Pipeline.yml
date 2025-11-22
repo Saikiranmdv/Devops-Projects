@@ -132,7 +132,7 @@ jobs:
         with: 
           images: ghcr.io/${{ steps.vars.outputs.repo_lower }}
           tags: | 
-            type=sha,
+            type=sha
             latest
       
       - name: Extract SHA tag only
