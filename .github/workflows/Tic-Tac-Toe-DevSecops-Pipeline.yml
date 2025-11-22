@@ -130,7 +130,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5 
         with: 
-          images: ghcr.io/${{ steps.vars.outputs.repo_lower }}
+          images: ${{ steps.vars.outputs.repo_lower }}
           tags: | 
             type=sha
             latest
